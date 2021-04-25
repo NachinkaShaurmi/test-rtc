@@ -13,6 +13,7 @@ const io = require("socket.io")(server, {
 app.use(express.json());
 app.use(cors());
 
+// Create rooms map (database replacement)
 const rooms = new Map();
 
 app.post("/rooms", (req, res) => {
@@ -28,6 +29,8 @@ app.post("/rooms", (req, res) => {
   }
   res.send();
 });
+
+// Socket event listener
 
 io.on("connection", (socket) => {
   socket.on("ROOM:JOIN", ({ roomId, userName }) => {

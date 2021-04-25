@@ -9,6 +9,8 @@ import axios from "axios";
 import URL from "./hostUrl"
 
 function App() {
+
+  // Our state from server response
   const [state, dispatch] = useReducer(reducer, {
     joined: false,
     roomId: null,
@@ -17,12 +19,14 @@ function App() {
     messages: [],
   });
   const [name, setName] = useState("");
+
+  // Connect to select room function
   const onLogin = async (userData) => {
     try {
       await axios.post(`${URL}/rooms`, userData);
     } catch (error) {
       return;
-      // TODO error message to user
+      // TODO error message to user or reconnect
     }
     dispatch({
       type: "JOINED",
